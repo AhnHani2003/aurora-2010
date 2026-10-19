@@ -1,0 +1,201 @@
+{
+  "source": "public/assets/tom/illustrated/expression-sheet.png",
+  "sourceSize": [
+    1312,
+    1199
+  ],
+  "sprites": [
+    {
+      "name": "idle",
+      "file": "idle.webp",
+      "sourceCell": [
+        0,
+        0
+      ],
+      "sourceRect": {
+        "left": 0,
+        "top": 0,
+        "width": 328,
+        "height": 400
+      },
+      "canvas": [
+        512,
+        560
+      ],
+      "headAnchor": [
+        256,
+        215
+      ],
+      "scale": 1.2,
+      "removedDetachedPixels": 4
+    },
+    {
+      "name": "greeting",
+      "file": "greeting.webp",
+      "sourceCell": [
+        1,
+        0
+      ],
+      "sourceRect": {
+        "left": 328,
+        "top": 0,
+        "width": 328,
+        "height": 400
+      },
+      "canvas": [
+        512,
+        560
+      ],
+      "headAnchor": [
+        256,
+        215
+      ],
+      "scale": 1.2,
+      "removedDetachedPixels": 6
+    },
+    {
+      "name": "happy",
+      "file": "happy.webp",
+      "sourceCell": [
+        3,
+        0
+      ],
+      "sourceRect": {
+        "left": 984,
+        "top": 0,
+        "width": 328,
+        "height": 400
+      },
+      "canvas": [
+        512,
+        560
+      ],
+      "headAnchor": [
+        256,
+        215
+      ],
+      "scale": 1.2,
+      "removedDetachedPixels": 10
+    },
+    {
+      "name": "excited",
+      "file": "excited.webp",
+      "sourceCell": [
+        3,
+        2
+      ],
+      "sourceRect": {
+        "left": 984,
+        "top": 799,
+        "width": 328,
+        "height": 400
+      },
+      "canvas": [
+        512,
+        560
+      ],
+      "headAnchor": [
+        256,
+        215
+      ],
+      "scale": 1.2,
+      "removedDetachedPixels": 760
+    },
+    {
+      "name": "proud",
+      "file": "proud.webp",
+      "sourceCell": [
+        0,
+        1
+      ],
+      "sourceRect": {
+        "left": 0,
+        "top": 400,
+        "width": 328,
+        "height": 399
+      },
+      "canvas": [
+        512,
+        560
+      ],
+      "headAnchor": [
+        256,
+        215
+      ],
+      "scale": 1.2,
+      "removedDetachedPixels": 94
+    },
+    {
+      "name": "angry",
+      "file": "angry.webp",
+      "sourceCell": [
+        2,
+        1
+      ],
+      "sourceRect": {
+        "left": 656,
+        "top": 400,
+        "width": 328,
+        "height": 399
+      },
+      "canvas": [
+        512,
+        560
+      ],
+      "headAnchor": [
+        256,
+        215
+      ],
+      "scale": 1.2,
+      "removedDetachedPixels": 210
+    },
+    {
+      "name": "shocked",
+      "file": "shocked.webp",
+      "sourceCell": [
+        0,
+        2
+      ],
+      "sourceRect": {
+        "left": 0,
+        "top": 799,
+        "width": 328,
+        "height": 400
+      },
+      "canvas": [
+        512,
+        560
+      ],
+      "headAnchor": [
+        256,
+        215
+      ],
+      "scale": 1.2,
+      "removedDetachedPixels": 8
+    },
+    {
+      "name": "crying",
+      "file": "crying.webp",
+      "sourceCell": [
+        3,
+        1
+      ],
+      "sourceRect": {
+        "left": 984,
+        "top": 400,
+        "width": 328,
+        "height": 399
+      },
+      "canvas": [
+        512,
+        560
+      ],
+      "headAnchor": [
+        256,
+        215
+      ],
+      "scale": 1.2,
+      "removedDetachedPixels": 738
+    }
+  ]
+}

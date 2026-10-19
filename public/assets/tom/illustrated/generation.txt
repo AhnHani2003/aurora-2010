@@ -1,0 +1,8 @@
+Tool: built-in imagegen (not CLI/API fallback).
+Reference: public/assets/tom/portrait.png (design inspiration only).
+Output: public/assets/tom/illustrated/expression-sheet.png, transparent background.
+Usage: consistent design/expression reference; the runtime is a separately authored layered SVG puppet.
+
+Full generation prompt:
+
+Use case: illustration-story. Asset type: cohesive 2D anime/chibi boyfriend character expression sprite sheet for a romantic pastel garden mini-game. Image1 is ONLY identity/design inspiration: youthful Vietnamese man, short side-parted voluminous black hair, gentle rounded face, brown eyes, white collared shirt. Generate ORIGINAL FULLY ILLUSTRATED art, never photograph collage. One consistent cute premium romantic-comedy character, warm cream skin, deep charcoal hair, soft rose blush, clean brown outlines, subtle cel shading. Transparent background. 4 columns x 3 rows evenly spaced aligned waist-up sprites of the SAME character, same head scale and baseline, each with complete visible arms/hands, no box, no crops, no overlapping cells. Row1 neutral relaxed; happy wave; excited hands raised; laughing clapping. Row2 smug wink thumbs-up; pouting crossed arms; mock-angry pointing; sad dramatic crying. Row3 shocked facepalm; blushing blowing kiss; thinking hand to chin; celebrating both hands raised with small hearts. Expressions MUST have distinctly different eyes, eyebrows and mouths. Keep character recognizable and white shirt identical throughout. No text, labels, captions, logos or watermark. This sheet will serve as a coherent design and expression reference for a layered SVG runtime puppet.
