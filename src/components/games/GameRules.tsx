@@ -1,4 +1,5 @@
 "use client";
+import { useLocalizedTree } from "@/components/i18n/LanguageProvider";
 import { ArrowLeft, ArrowRight, Check, Heart } from "lucide-react";
 import type { GameId } from "@/types/game";
 import { WHEEL_REWARDS, SELF_CHOICE_REWARDS } from "@/data/rewards";
@@ -36,7 +37,8 @@ export function GameRules({
   act: Act;
   pending: boolean;
 }) {
-  return (
+  const localize = useLocalizedTree();
+  return localize(
     <section className="rules-view paper-panel">
       <span className="eyebrow">THE LITTLE DETAILS</span>
       <h1>
@@ -56,19 +58,17 @@ export function GameRules({
       </ol>
       <div className="rules-prizes">
         <h3>Something lovely is at stake</h3>
-        {(game === "wheel" ? WHEEL_REWARDS : SELF_CHOICE_REWARDS).map(
-          (r, i) => (
-            <p key={r?.id ?? i}>
-              {r?.icon ?? "☁"}{" "}
-              <strong>{r?.title ?? "Better Luck Next Time — No Prize"}</strong>
-              {r?.budget?.giftCount === 2 && (
-                <small>
-                  Exactly two gifts. The budget is combined, not per gift.
-                </small>
-              )}
-            </p>
-          ),
-        )}
+        {(game === "wheel" ? WHEEL_REWARDS : SELF_CHOICE_REWARDS).map((r) => (
+          <p key={r?.id ?? "no-prize"}>
+            {r?.icon ?? "☁"}{" "}
+            <strong>{r?.title ?? "Better Luck Next Time — No Prize"}</strong>
+            {r?.budget?.giftCount === 2 && (
+              <small>
+                Exactly two gifts. The budget is combined, not per gift.
+              </small>
+            )}
+          </p>
+        ))}
       </div>
       <p className="fine-print">
         Starting locks this game for this adventure. Leaving early records a
@@ -90,6 +90,6 @@ export function GameRules({
           Start Challenge <ArrowRight size={16} />
         </button>
       </div>
-    </section>
+    </section>,
   );
 }

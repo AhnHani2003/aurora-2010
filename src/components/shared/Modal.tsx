@@ -1,4 +1,8 @@
 "use client";
+import {
+  useLocalizedTree,
+  LanguageToggle,
+} from "@/components/i18n/LanguageProvider";
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 export function Modal({
@@ -12,13 +16,14 @@ export function Modal({
   onClose: () => void;
   wide?: boolean;
 }) {
+  const localize = useLocalizedTree();
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const d = ref.current;
     d?.showModal();
     return () => d?.close();
   }, []);
-  return (
+  return localize(
     <dialog
       ref={ref}
       className={`modal ${wide ? "wide" : ""}`}
@@ -30,6 +35,7 @@ export function Modal({
     >
       <div className="modal-top">
         <span className="eyebrow">{title}</span>
+        <LanguageToggle />
         <button
           aria-label="Close dialog"
           className="icon-button"
@@ -39,6 +45,6 @@ export function Modal({
         </button>
       </div>
       {children}
-    </dialog>
+    </dialog>,
   );
 }

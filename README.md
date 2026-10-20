@@ -1,6 +1,6 @@
 # A little love, a lot of luck
 
-A private October 20 surprise from Tom to Aurora: a botanical garden and eight memories, a ten-second gift reveal, an expressive illustrated chibi host, three complete games, held victory celebrations, rewards, saved result cards, romantic endings, and unlimited fresh adventures. The website is entirely English.
+A private October 20 surprise from Tom to Aurora: a botanical garden and eight memories, a five-second gift reveal, an expressive illustrated chibi host, three complete games, held victory celebrations, rewards, saved result cards, romantic endings, and unlimited fresh adventures. The website supports English and Vietnamese through a compact EN | VI toggle, with English as the default.
 
 ## Run locally
 
@@ -31,6 +31,12 @@ npm.cmd start
 ```
 
 `start` serves the production build with the same standalone behavior; no backend environment variables are needed. The release browser suite starts/stops its own production server on port 3001. The older `e2e/` suite is retained for backend-mode regression checks; stop an existing port-3000 server before running it.
+
+## English and Vietnamese
+
+Use **EN | VI** in the header (or inside an open dialog). The choice is remembered separately from game progress, and switching never resets attempts, scores, quiz order, rewards or drafted messages. All fifteen questions, Tom reactions, rules, results and accessibility text are localized. Begging messages use the same whitespace-based counter in both languages: at least 31 words, including Vietnamese diacritics, with no claim to verify the language itself. The gift arrives after five seconds and still opens only when clicked.
+
+See [the localization guide](docs/localization.md) for dictionary structure, typed keys, adding translations, changed files and verification. Run the existing production suite with `npx.cmd --no-install playwright test --config playwright.release.config.ts` after building; it includes the bilingual tests.
 
 ## Stack and organization
 

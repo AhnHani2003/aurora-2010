@@ -1,4 +1,8 @@
 "use client";
+import {
+  useLanguage,
+  useLocalizedTree,
+} from "@/components/i18n/LanguageProvider";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { TomSprites } from "./TomSprites";
@@ -10,6 +14,7 @@ type Props = {
   expression?: Expression;
   gesture?: Gesture;
   dialogue: string;
+  dialogueVi?: string;
   compact?: boolean;
   revealed?: boolean;
   sceneKey?: string;
@@ -22,6 +27,7 @@ export function TomCharacter({
   expression = "neutral",
   gesture,
   dialogue,
+  dialogueVi,
   compact = false,
   revealed = true,
   sceneKey,
@@ -30,6 +36,8 @@ export function TomCharacter({
   effect,
   onPoke,
 }: Props) {
+  const localize = useLocalizedTree();
+  const { language } = useLanguage();
   const reduce = !!useReducedMotion(),
     face = FACES[expression];
   const [dismissed, setDismissed] = useState(""),
@@ -57,7 +65,7 @@ export function TomCharacter({
   const joke = pokeJoke === (sceneKey ?? "reveal");
   const shownExpression = joke ? "laughing" : expression;
   const shownGesture = joke ? "blow-kiss" : activeGesture;
-  return (
+  return localize(
     <div
       className={`tom-character ${compact ? "tom-character--compact" : ""} ${className}`}
       data-expression={shownExpression}
@@ -80,10 +88,12 @@ export function TomCharacter({
             <span className="tom-speech-label">
               A LITTLE WORD FROM TOM <span aria-hidden="true">&#9825;</span>
             </span>
-            <p>
+            <p data-l10n-ignore={!joke && dialogueVi !== undefined}>
               {joke
                 ? "Hey, princess! Stop poking me... unless you're asking for a kiss!"
-                : dialogue}
+                : language === "vi" && dialogueVi !== undefined
+                  ? dialogueVi
+                  : dialogue}
             </p>
             {dialogue.length > 165 && !joke && (
               <button
@@ -198,6 +208,6 @@ export function TomCharacter({
         </span>
         <span className="tom-caption-line" />
       </div>
-    </div>
+    </div>,
   );
 }

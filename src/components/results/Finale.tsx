@@ -1,4 +1,8 @@
 "use client";
+import {
+  useLocalizedTree,
+  useLanguage,
+} from "@/components/i18n/LanguageProvider";
 import { Camera, Flower2, Heart, RotateCcw } from "lucide-react";
 import type { PublicPlaythrough } from "@/types/game";
 import { gameNames } from "../game-hub/GameHub";
@@ -17,10 +21,12 @@ export function Finale({
   onGarden: () => void;
   pending: boolean;
 }) {
+  const localize = useLocalizedTree();
+  const { language } = useLanguage();
   const final = state.final!,
     won = final.status === "won",
     forfeit = final.status === "forfeited";
-  return (
+  return localize(
     <section className="finale">
       <span className="eyebrow">ANOTHER LITTLE CHAPTER OF US</span>
       <h1>
@@ -101,18 +107,21 @@ export function Finale({
           <div>
             <dt>Recorded</dt>
             <dd>
-              {new Date(final.finalizedAt).toLocaleString("en-GB", {
-                timeZone: "Asia/Ho_Chi_Minh",
-                dateStyle: "medium",
-                timeStyle: "short",
-              })}{" "}
+              {new Date(final.finalizedAt).toLocaleString(
+                language === "vi" ? "vi-VN" : "en-GB",
+                {
+                  timeZone: "Asia/Ho_Chi_Minh",
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                },
+              )}{" "}
               ICT
             </dd>
           </div>
         </dl>
         {final.preference && (
           <p className="result-preference">
-            Your little wish: {final.preference}
+            Your little wish: <span data-l10n-ignore>{final.preference}</span>
           </p>
         )}
         <span className="result-reference">REFERENCE · {final.id}</span>
@@ -183,6 +192,6 @@ export function Finale({
           Back to the Garden <Flower2 size={16} />
         </button>
       </div>
-    </section>
+    </section>,
   );
 }

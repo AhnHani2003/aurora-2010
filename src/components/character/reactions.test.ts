@@ -63,7 +63,7 @@ describe("extracted sprites and contextual reactions", () => {
     });
     expect(correct.expression).toBe("blushing");
     expect(wrong.expression).toBe("shocked");
-    expect(correct.dialogue).toContain("unlimited");
+    expect(correct.dialogue).toBe(QUIZ_REACTIONS.q1.A.dialogue);
     expect(
       reactionFor({
         type: "QUESTION_ANSWER_CORRECT",

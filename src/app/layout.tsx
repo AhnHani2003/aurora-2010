@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AudioProvider } from "@/components/audio/AudioProvider";
+import { LanguageProvider } from "@/components/i18n/LanguageProvider";
 export const metadata: Metadata = {
-  title: "A little love, a lot of luck · For Aurora",
+  // LanguageProvider owns the bilingual title, including its English SSR default.
   description:
     "An October 20 surprise, made with love by Tom. A secret garden, a little adventure, and you.",
   robots: { index: false, follow: false },
@@ -13,9 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <AudioProvider>{children}</AudioProvider>
+        <LanguageProvider>
+          <AudioProvider>{children}</AudioProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

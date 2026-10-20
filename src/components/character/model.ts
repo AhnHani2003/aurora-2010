@@ -93,6 +93,7 @@ export interface Reaction {
   expression: Expression;
   gesture: Gesture;
   dialogue: string;
+  dialogueVi?: string;
   duration: number;
   priority: number;
   effect?: "hearts" | "sparkles" | "tears";

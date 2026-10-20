@@ -1,9 +1,15 @@
 "use client";
+import {
+  useLocalizedTree,
+  useLanguage,
+} from "@/components/i18n/LanguageProvider";
+import { countWords } from "@/lib/words";
 import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Gift, Heart, RotateCcw } from "lucide-react";
 import type { Prediction, PublicPlaythrough, GameAction } from "@/types/game";
 import { WHEEL_REWARDS } from "@/data/rewards";
+import { QUIZ_REACTIONS } from "@/data/character-dialogue";
 import type { ReactionEvent } from "../character/model";
 import { Modal } from "../shared/Modal";
 import { gameNames, type Act } from "../game-hub/GameHub";
@@ -16,7 +22,8 @@ const colors = [
   "#e8dee0",
 ];
 function Wheel({ rotation }: { rotation: number }) {
-  return (
+  const localize = useLocalizedTree();
+  return localize(
     <div className="wheel-wrap">
       <div className="wheel-pointer" />
       <motion.svg
@@ -33,7 +40,7 @@ function Wheel({ rotation }: { rotation: number }) {
             b = (((i + 1) * 60 - 90) * Math.PI) / 180,
             m = ((i * 60 + 30 - 90) * Math.PI) / 180;
           return (
-            <g key={i}>
+            <g key={r?.id ?? "no-prize"}>
               <path
                 d={`M170 170 L${170 + 158 * Math.cos(a)} ${170 + 158 * Math.sin(a)} A158 158 0 0 1 ${170 + 158 * Math.cos(b)} ${170 + 158 * Math.sin(b)} Z`}
                 fill={colors[i]}
@@ -61,10 +68,11 @@ function Wheel({ rotation }: { rotation: number }) {
         </text>
       </motion.svg>
       <span className="wheel-foot">A LITTLE LOVE · A LOT OF LUCK</span>
-    </div>
+    </div>,
   );
 }
 export function Die({ value, rolling }: { value: number; rolling: boolean }) {
+  const localize = useLocalizedTree();
   const positions: Record<number, number[]> = {
     1: [4],
     2: [0, 8],
@@ -73,7 +81,7 @@ export function Die({ value, rolling }: { value: number; rolling: boolean }) {
     5: [0, 2, 4, 6, 8],
     6: [0, 2, 3, 5, 6, 8],
   };
-  return (
+  return localize(
     <motion.div
       className="die"
       animate={
@@ -90,7 +98,7 @@ export function Die({ value, rolling }: { value: number; rolling: boolean }) {
           className={positions[value].includes(i) ? "pip visible" : "pip"}
         />
       ))}
-    </motion.div>
+    </motion.div>,
   );
 }
 export function GamePanel({
@@ -104,6 +112,13 @@ export function GamePanel({
   pending: boolean;
   onReaction?: (event: ReactionEvent) => void;
 }) {
+  const localize = useLocalizedTree();
+  const { language } = useLanguage();
+  const feedbackHeading = state.quiz.feedback
+    ? QUIZ_REACTIONS[state.quiz.feedback.questionId]?.[
+        state.quiz.feedback.answer
+      ]?.feedbackHeading
+    : undefined;
   const [selectedAnswer, setSelectedAnswer] = useState<{
     questionId: string;
     label: string;
@@ -131,8 +146,7 @@ export function GamePanel({
   const locked = count >= free && !unlocked;
   const lastRoll = state.dice.rolls.at(-1),
     lastSpin = state.wheel.spins.at(-1);
-  const wordCount = (message.match(/[A-Za-z]+(?:['’-][A-Za-z]+)*/g) || [])
-    .length;
+  const wordCount = countWords(message);
   async function perform(action: GameAction) {
     if (
       (action.type === "spin" ||
@@ -156,7 +170,7 @@ export function GamePanel({
         );
     });
   }
-  return (
+  return localize(
     <section className="play-view paper-panel">
       <div className="play-heading">
         <div>
@@ -178,7 +192,8 @@ export function GamePanel({
                 Math.max(count, free) -
                 state.begging.filter((b) => !b.consumed).length,
             )}{" "}
-            locked bonus {game === "dice" ? "rolls" : "spins"}
+            locked bonus{" "}
+            {language === "en" ? (game === "dice" ? "rolls" : "spins") : ""}
           </span>
         </div>
       )}
@@ -235,7 +250,7 @@ export function GamePanel({
           </div>
           <div className="wheel-legend">
             {WHEEL_REWARDS.map((r, i) => (
-              <span key={i}>
+              <span key={r?.id ?? "no-prize"}>
                 <i style={{ background: colors[i] }} />
                 {r?.title ?? "Better Luck Next Time"}
               </span>
@@ -409,10 +424,12 @@ export function GamePanel({
                   className={`answer-feedback ${state.quiz.feedback.correct ? "right" : "wrong"}`}
                   role="status"
                 >
-                  <strong>
-                    {state.quiz.feedback.correct
-                      ? "You know us so well! ♡"
-                      : "A tiny plot twist…"}
+                  <strong data-l10n-ignore={!!feedbackHeading}>
+                    {feedbackHeading
+                      ? feedbackHeading[language]
+                      : state.quiz.feedback.correct
+                        ? "You know us so well! ♡"
+                        : "A tiny plot twist…"}
                   </strong>
                   <p>
                     Correct answer: {state.quiz.feedback.correctAnswer}.{" "}
@@ -491,8 +508,8 @@ export function GamePanel({
           />
           <div className="word-count">{wordCount} / 31 words minimum</div>
           <p className="fine-print">
-            A different message for each bonus attempt. We count English words;
-            grammar isn’t being graded.
+            A different message for each bonus attempt. We count words separated
+            by spaces; grammar and language aren’t being checked.
           </p>
           <button
             className="primary"
@@ -508,6 +525,6 @@ export function GamePanel({
           </button>
         </Modal>
       )}
-    </section>
+    </section>,
   );
 }

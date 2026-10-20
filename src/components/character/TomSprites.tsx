@@ -1,9 +1,11 @@
 "use client";
+import { useLocalizedTree } from "@/components/i18n/LanguageProvider";
 import Image from "next/image";
 import { useState } from "react";
 import { TOM_SPRITES, type SpriteName } from "./sprites";
 /** All poses share a 512×560 canvas and head anchor. Never stretch or reframe on a pose change. */
 export function TomSprites({ sprite }: { sprite: SpriteName }) {
+  const localize = useLocalizedTree();
   const [loaded, setLoaded] = useState<Partial<Record<SpriteName, boolean>>>(
     {},
   );
@@ -11,7 +13,7 @@ export function TomSprites({ sprite }: { sprite: SpriteName }) {
   const visible = loaded[sprite] ? sprite : lastReady;
   // Retain the decoded pose while a slower network finishes the next one.
   if (loaded[sprite] && lastReady !== sprite) setLastReady(sprite);
-  return (
+  return localize(
     <div
       className="tom-sprite-stack"
       data-sprite={visible}
@@ -41,6 +43,6 @@ export function TomSprites({ sprite }: { sprite: SpriteName }) {
           draggable={false}
         />
       ))}
-    </div>
+    </div>,
   );
 }

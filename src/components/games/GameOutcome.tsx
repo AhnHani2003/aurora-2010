@@ -1,4 +1,5 @@
 "use client";
+import { useLocalizedTree } from "@/components/i18n/LanguageProvider";
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight } from "lucide-react";
@@ -17,6 +18,7 @@ export function GameOutcome({
   state: PublicPlaythrough;
   onNext: () => void;
 }) {
+  const localize = useLocalizedTree();
   const { manager: audio } = useAudio();
   const won = state.phase === "reward" || state.final?.status === "won";
   useEffect(() => {
@@ -31,7 +33,7 @@ export function GameOutcome({
   const roll = state.dice.rolls.at(-1),
     spin = state.wheel.spins.at(-1);
   const choice = state.phase === "reward";
-  return (
+  return localize(
     <section
       className={`paper-panel game-outcome ${won ? "victory" : "comfort"}`}
       data-outcome={won ? "won" : "lost"}
@@ -135,6 +137,6 @@ export function GameOutcome({
           )}
         </div>
       </div>
-    </section>
+    </section>,
   );
 }

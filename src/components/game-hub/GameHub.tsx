@@ -1,4 +1,5 @@
 "use client";
+import { useLocalizedTree } from "@/components/i18n/LanguageProvider";
 import { ArrowRight, CircleHelp, Dices, Sparkles } from "lucide-react";
 import type { GameAction, GameId, PublicPlaythrough } from "@/types/game";
 export const gameNames: Record<GameId, string> = {
@@ -19,7 +20,8 @@ export function GameHub({
   act: Act;
   pending: boolean;
 }) {
-  return (
+  const localize = useLocalizedTree();
+  return localize(
     <section className="game-hub">
       <div className="eyebrow">A LITTLE COURAGE. A LITTLE CHEMISTRY.</div>
       <h1>
@@ -98,6 +100,6 @@ export function GameHub({
           </span>
         )}
       </div>
-    </section>
+    </section>,
   );
 }

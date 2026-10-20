@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { countWords } from "../words";
 import { QUESTIONS } from "@/data/questions";
 import { SELF_CHOICE_REWARDS, WHEEL_REWARDS } from "@/data/rewards";
 import type {
@@ -112,8 +113,7 @@ export function createPlaythrough(
 }
 
 export function countEnglishWords(message: string): number {
-  // An alphabetic word counter, deliberately not a claim to assess English grammar.
-  return message.match(/[A-Za-z]+(?:['’-][A-Za-z]+)*/g)?.length ?? 0;
+  return countWords(message);
 }
 const normalizeMessage = (message: string) =>
   message.trim().replace(/\s+/g, " ").toLowerCase();

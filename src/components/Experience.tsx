@@ -1,4 +1,8 @@
 "use client";
+import {
+  useLocalizedTree,
+  LanguageToggle,
+} from "@/components/i18n/LanguageProvider";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import {
@@ -43,6 +47,7 @@ const initial: Session = {
   emailStatus: null,
 };
 export function Experience() {
+  const localize = useLocalizedTree();
   const [session, setSession] = useState<Session>(initial),
     [loading, setLoading] = useState(true),
     [pending, setPending] = useState(false),
@@ -90,14 +95,15 @@ export function Experience() {
   }, []);
   useEffect(() => {
     if (
+      loading ||
       !session.authenticated ||
       scene !== "garden" ||
       state?.phase === "finalized"
     )
       return;
-    const timer = setTimeout(() => setScene("surprise"), 10000);
+    const timer = setTimeout(() => setScene("surprise"), 5000);
     return () => clearTimeout(timer);
-  }, [session.authenticated, scene, state?.id, state?.phase]);
+  }, [loading, session.authenticated, scene, state?.id, state?.phase]);
   useEffect(() => {
     if (scene !== "reveal") return;
     const t = setTimeout(() => setGiftOpened(true), 80);
@@ -247,8 +253,8 @@ export function Experience() {
     ["reward", "finalized"].includes(state.phase) &&
     reviewedKey !== outcomeKey(state);
   const appearance = reaction ?? baselineReaction(state, scene, reviewPending);
-  const { expression, gesture, dialogue, effect } = appearance;
-  return (
+  const { expression, gesture, dialogue, dialogueVi, effect } = appearance;
+  return localize(
     <MotionConfig reducedMotion="user">
       <div className={`experience scene-${scene}`}>
         <GardenDecor />
@@ -268,6 +274,7 @@ export function Experience() {
           </a>
           <span className="header-note">A LITTLE LOVE, A LOT OF LUCK</span>
           <div className="header-actions">
+            <LanguageToggle />
             {session.authenticated && (
               <button
                 className="icon-button"
@@ -575,6 +582,7 @@ export function Experience() {
                     effect={effect}
                     onPoke={() => dispatch({ type: "POKE" })}
                     dialogue={dialogue}
+                    dialogueVi={dialogueVi}
                     sceneKey={`${state.phase}-${state.game ?? ""}`}
                   />
                   <span className="character-caption">
@@ -666,6 +674,6 @@ export function Experience() {
           </Modal>
         )}
       </div>
-    </MotionConfig>
+    </MotionConfig>,
   );
 }

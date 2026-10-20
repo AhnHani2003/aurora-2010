@@ -79,7 +79,7 @@ export function GardenDecor() {
       <div className="flower-bed left">
         {["#ecb4b9", "#f4dfba", "#d7b8d3", "#eaa0ae", "#fff4d2"].map((c, i) => (
           <Flower
-            key={i}
+            key={c}
             color={c}
             variety={i === 0 ? "rose" : i === 2 ? "tulip" : "daisy"}
             className={`stem stem-${i}`}
@@ -89,7 +89,7 @@ export function GardenDecor() {
       <div className="flower-bed right">
         {["#f1c8d5", "#fff4d2", "#eaa0ae", "#d5c7df", "#efc19e"].map((c, i) => (
           <Flower
-            key={i}
+            key={c}
             color={c}
             variety={i === 0 ? "rose" : i === 3 ? "tulip" : "daisy"}
             className={`stem stem-${i}`}

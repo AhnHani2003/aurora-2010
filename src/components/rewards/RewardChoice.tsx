@@ -1,4 +1,5 @@
 "use client";
+import { useLocalizedTree } from "@/components/i18n/LanguageProvider";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { SELF_CHOICE_REWARDS } from "@/data/rewards";
@@ -13,11 +14,12 @@ export function RewardChoice({
   pending: boolean;
   onSelect?: () => void;
 }) {
+  const localize = useLocalizedTree();
   const [selected, setSelected] = useState<string | null>(null),
     [confirm, setConfirm] = useState(false),
     [preference, setPreference] = useState("");
   const reward = SELF_CHOICE_REWARDS.find((r) => r.id === selected);
-  return (
+  return localize(
     <section className="paper-panel reward-choice">
       <span className="eyebrow">YOU WON, PRINCESS</span>
       <h1>
@@ -104,6 +106,6 @@ export function RewardChoice({
           </div>
         </Modal>
       )}
-    </section>
+    </section>,
   );
 }

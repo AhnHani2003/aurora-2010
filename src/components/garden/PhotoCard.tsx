@@ -1,4 +1,5 @@
 "use client";
+import { useLocalizedTree } from "@/components/i18n/LanguageProvider";
 import Image from "next/image";
 import { useState } from "react";
 import { photos } from "@/data/photos";
@@ -10,8 +11,9 @@ export function PhotoCard({
   photo: (typeof photos)[number];
   onClick?: () => void;
 }) {
+  const localize = useLocalizedTree();
   const [missing, setMissing] = useState(false);
-  return (
+  return localize(
     <button
       type="button"
       className={`polaroid photo-${photo.index}`}
@@ -45,6 +47,6 @@ export function PhotoCard({
       </div>
       <span className="photo-caption">{photo.caption}</span>
       <span className="photo-tape" />
-    </button>
+    </button>,
   );
 }

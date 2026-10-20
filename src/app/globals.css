@@ -148,6 +148,47 @@ textarea::placeholder {
   align-items: center;
   gap: 14px;
 }
+.language-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  color: #ad9788;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+}
+.language-toggle button {
+  border: 0;
+  background: transparent;
+  color: #9a867b;
+  padding: 7px 3px;
+}
+.language-toggle button[aria-pressed="true"] {
+  color: var(--rose-dark);
+  font-weight: 700;
+}
+html[lang="vi"] .tom-speech-label,
+html[lang="vi"] .eyebrow,
+html[lang="vi"] .card-tag {
+  letter-spacing: 1px;
+}
+html[lang="vi"] {
+  --serif: "Times New Roman", Times, serif;
+}
+html[lang="vi"] .primary,
+html[lang="vi"] .secondary,
+html[lang="vi"] .tom-speech p {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 640px) {
+  .header-actions {
+    gap: 7px;
+  }
+  .language-toggle {
+    font-size: 10px;
+    gap: 3px;
+  }
+}
 .icon-button {
   border: 0;
   background: transparent;
@@ -3126,4 +3167,17 @@ textarea::placeholder {
 }
 .primary:hover:not(:disabled) {
   transform: none;
+}
+
+@media (max-width: 360px) {
+  .site-header {
+    padding-inline: 12px;
+  }
+  .wordmark {
+    font-size: 22px;
+    gap: 6px;
+  }
+  .header-actions {
+    gap: 1px;
+  }
 }
